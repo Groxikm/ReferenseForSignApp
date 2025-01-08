@@ -1,33 +1,30 @@
 const submitButton = document.getElementById('submit-button');
 
+const idInput = document.getElementById('id');
+
+
 // ethalone
-const drawCanvas = document.getElementById('drawer-ethalone-canvas');
-const submitCanvas = document.getElementById('submit-ethalone-canvas');
+const drawCanvas = document.getElementById('drawer-canvas');
+const submitCanvas = document.getElementById('submit-canvas');
 const drawerCanvasContext = drawCanvas.getContext('2d');
 const submitCanvasContext = submitCanvas.getContext('2d');
 const drawCanvasData = new DrawCanvasData();
 setUpDrawCanvas(drawCanvas, drawCanvasData, drawerCanvasContext, submitCanvasContext);
 
-// comparable
-const drawComparableCanvas = document.getElementById('drawer-comparable-canvas');
-const submitComparableCanvas = document.getElementById('submit-comparable-canvas');
-const drawerComparableCanvasContext = drawComparableCanvas.getContext('2d');
-const submitComparableCanvasContext = submitComparableCanvas.getContext('2d');
-const drawComparableCanvasData = new DrawCanvasData();
-setUpDrawCanvas(drawComparableCanvas, drawComparableCanvasData, drawerComparableCanvasContext, submitComparableCanvasContext);
-
 const stringContentField = document.getElementById("string-content");
+
 
 submitButton.addEventListener("click", async () => {
     const ethalone = pixels2DListToString(drawCanvasData.pictureList, pixelsDelimeter, stringPixelsDelimeter);
-    const comparable = pixels2DListToString(drawComparableCanvasData.pictureList, pixelsDelimeter, stringPixelsDelimeter);
+
+    const id = idInput.value;
     try {
-        const response = await fetch('http://127.0.0.1:5000/signature/compare', {
+        const response = await fetch('http://127.0.0.1:5000/signature/compare/server', {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({"ethaloneSignature": ethalone, "comparableSignature": comparable, "tolerance": 20})
+            body: JSON.stringify({"comparingSignature": ethalone, "signatureId": id, "tolerance": 10})
         });
         console.log(response);
         const result = await response.json();
@@ -40,4 +37,10 @@ submitButton.addEventListener("click", async () => {
     } catch (error) {
         console.error('Error:', error);
     }
+});
+
+const resetButton = document.getElementById('reset-button');
+resetButton.addEventListener("click", async () => {
+    resetContent(drawerCanvasContext, drawCanvasData);
+    resetContent(submitCanvasContext, drawCanvasData);
 });

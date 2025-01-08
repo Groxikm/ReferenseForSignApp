@@ -28,8 +28,18 @@ def parallel_rebase(points: list[(int, int)], delta_x: int, delta_y: int):
 def compare_two_signatures(ethalone: str, comparable: str, tolerance: int) -> int:
     ethalone_points = parse_sig_str_to_list(ethalone)
     comparable_points = parse_sig_str_to_list(comparable)
+    ethalone_length = len(ethalone_points)
+    comparable_length = len(comparable_points)
+    length_ratio_coefficient = (comparable_length / ethalone_length)
+
+    if length_ratio_coefficient > 1:
+        length_ratio_coefficient = 1 / length_ratio_coefficient
+
     acceptable_radius_pow2 = tolerance * tolerance
-    parallel_rebase(comparable_points, ethalone_points[0][0] - comparable_points[0][0],  ethalone_points[0][1] - comparable_points[0][1])
+    parallel_rebase(comparable_points,
+                    ethalone_points[0][0] - comparable_points[0][0],
+                    ethalone_points[0][1] - comparable_points[0][1])
+
     quantity_of_curve_fitting_points = 0
     for comparable_point in comparable_points:
         for ethalone_point in ethalone_points:
@@ -38,7 +48,7 @@ def compare_two_signatures(ethalone: str, comparable: str, tolerance: int) -> in
                     <= acceptable_radius_pow2):
                 quantity_of_curve_fitting_points += 1
                 break
-    return int((quantity_of_curve_fitting_points-1)/len(comparable_points) * 100)
+    return int(100 * quantity_of_curve_fitting_points/comparable_length * length_ratio_coefficient )
 
 # sig_e = "123,128/50,70/250,40"
 # sig_c = "143,148/70,90/250,40"
