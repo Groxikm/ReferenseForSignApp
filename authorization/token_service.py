@@ -10,14 +10,14 @@ class TokenService(ABC):
     @abstractmethod
     def verify(self, token: str) -> bool:
         """
-        Проверяет данные из токена
+        checks if the token is valid
         """
         pass
 
     @abstractmethod
     def encode(self, username: str) -> str:
         """
-        Кодирует в токен имя
+        encodes the token
         """
         pass
 

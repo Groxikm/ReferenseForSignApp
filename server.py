@@ -1,20 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, Response
-from flask_cors import cross_origin, CORS
-import datetime
 from flask_cors import CORS
-from token_service import TokenServiceImpl
-import security
-from authorisation_service import authorisation_service as auth
+from authorization.token_service import TokenServiceImpl
+from authorization import security
 from mongo_orm import mongo_db
 import settings
-from flask import Flask, request, jsonify
-from sign_service.signature import Signature
+from flask import Flask, request
 from lib.signature_comparison_method_circles_pithagorian import compare_two_signatures
 app = Flask(__name__)
 token_service = TokenServiceImpl()
 security_service = security.EndpointsSecurityService()
-authorisation_service = auth.AutorisationServise()
-
 
 CORS(app)
 from sign_service import service as service_s
