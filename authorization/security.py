@@ -1,4 +1,4 @@
-import token_service as ts
+import authorization.token_service as ts
 from flask import Request
 
 
