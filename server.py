@@ -12,6 +12,9 @@ token_service = TokenServiceImpl()
 CORS(app)
 from sign_service import service as service_s
 
+#launch print
+print("App runs")
+
 signature_service = service_s.SignatureService(
         mongo_db.MongoRepository(
             settings.DB_CONNECTION_STRING, "Test_DB", "signature_collection"))
