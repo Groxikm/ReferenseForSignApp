@@ -1,12 +1,12 @@
 from flask_cors import CORS
-from authorization.token_service import TokenServiceImpl
+#from authorization.token_service import TokenServiceImpl
 #from authorization.security import security
 from mongo_orm import mongo_db
 import settings
 from flask import Flask, request
 from lib.signature_comparison_method_circles_pithagorian import compare_two_signatures
 app = Flask(__name__)
-token_service = TokenServiceImpl()
+#token_service = TokenServiceImpl()
 #security_service = security.EndpointsSecurityService()
 
 CORS(app)

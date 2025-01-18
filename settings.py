@@ -1,0 +1,4 @@
+import os
+
+DB_CONNECTION_STRING = os.environ['DB_CONNECTION_STRING']
+SECRET_KEY = os.environ['SECRET_KEY']
