@@ -33,14 +33,14 @@ def compare_two_signatures(ethalone: str, comparable: str, tolerance: int) -> in
     length_ratio_coefficient = (comparable_length / ethalone_length)
 
     if length_ratio_coefficient > 1:
-        length_ratio_coefficient = 1 / length_ratio_coefficient
+        length_ratio_coefficient = 1 / length_ratio_coefficient # makes the coefficient always being in range of 0 and 1
 
     acceptable_radius_pow2 = tolerance * tolerance
     parallel_rebase(comparable_points,
                     ethalone_points[0][0] - comparable_points[0][0],
-                    ethalone_points[0][1] - comparable_points[0][1])
+                    ethalone_points[0][1] - comparable_points[0][1]) # alignment of the whole points sets by the first point (offset)
 
-    quantity_of_curve_fitting_points = 0
+    quantity_of_curve_fitting_points = 0 # the amount of points considered matching by the radius 
     for comparable_point in comparable_points:
         for ethalone_point in ethalone_points:
             if ((ethalone_point[0]-comparable_point[0])**2
