@@ -67,7 +67,7 @@ To run the application locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/ReferenseForSignApp.git
+   git clone https://github.com/Groxikm/ReferenseForSignApp/tree/main
    cd ReferenseForSignApp
    ```
 
